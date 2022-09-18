@@ -1,15 +1,21 @@
 \documentclass[a4paper,12pt]{report}    %Article before
 
 \usepackage{preamb}
-%\setboolean{@twoside}{false}
 
 \begin{document}
-
+\lstset{style=codestyle}
 \input{latex/FrontPage.tex}
 \tableofcontents
 \pagestyle{ProjectReport}
+\newpage
+\lstlistoflistings
+\newpage
 
+\chapter{Asssignment1 }
 
+\section{Opgave 1}
+
+\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=hej hjeje caption]{../code/src/assignment1/ModuleSingle/single.cpp}
 
 
 \end{document}
