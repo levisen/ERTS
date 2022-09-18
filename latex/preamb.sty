@@ -1,0 +1,99 @@
+\ProvidesPackage{preamb}
+
+\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{lipsum}
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}        % To use matrices
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\usepackage{fancyvrb}
+\usepackage{float}
+\usepackage{floatflt}
+\usepackage{import}
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{fullpage}
+\usepackage{graphicx}       % Import of different graphic files
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{microtype}      % microtypography
+\usepackage{longtable}
+%\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{placeins}
+\usepackage{physics}
+\usepackage{subfiles}       % Subfile compilation - For faster compilation
+\usepackage{siunitx}
+\usepackage{url}            % simple URL typesetting
+\usepackage{verbatim}
+%\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{mwe}
+\usepackage[normalem]{ulem}
+%\useunder{\uline}{\ul}{}
+%\usepackage{makecell}
+%\usepackage{placeins}
+%\usepackage{wrapfig}
+\usepackage{adjustbox}
+\usepackage{lscape}
+%\usepackage[parfill]{parskip}
+\usepackage{changepage}
+\usepackage[includeheadfoot, margin=0.8in,headheight=67pt]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[utf8x]{inputenc}
+
+ \usepackage{tikz}
+ \usetikzlibrary{arrows.meta}
+
+% -----------------------------------------
+%       Header implementation 
+%           DO NOT TOUCH ME
+% -----------------------------------------
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\fancypagestyle{ProjectReport}{
+\setlength{\headwidth}{\textwidth}
+\renewcommand{\headrulewidth}{0pt}
+\fancyheadoffset{0pt}
+\fancyhead[L]{}% empty left 
+\fancyhead[R]{ % right 
+  \includegraphics[height=1cm]{figures/aulogo_uk_var1_black.png}
+}
+\fancyfoot[L]{\footnotesize Date: \today}
+\fancyfoot[C]{\footnotesize Aarhus University}
+\fancyfoot[R]{\footnotesize \textbf{\thepage\ / \pageref{LastPage}}\\Software Eng.\\ Principles}
+}
+
+\setlength{\headheight}{45pt}
+\setcounter{secnumdepth}{4}
+
+% Use cdot instead of multiplication operator % 
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% Chapter redefinition of margins %
+\usepackage{titlesec}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\hsp}{0pt}{\Large\bfseries}
+\titlespacing*{\chapter}{2pt}{-30pt}{6pt}
+
+
+% For code snippets
+\usepackage{minted}
+\definecolor{bg}{HTML}{282828}
+\usemintedstyle{vs}
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\usepackage[font={small,it},belowskip=15pt,aboveskip=0pt]{caption}
+
+\fancypagestyle{plain}{}
+
+
+% Params: width, path, caption, label
+\newcommand{\insertfigure}[4]{
+    \begin{figure}[H]
+        \centering
+        \makebox[\textwidth][c]{\includegraphics[width=#1\textwidth]{#2}}
+         \caption{#3}
+         \label{#4}
+    \end{figure}
+}
