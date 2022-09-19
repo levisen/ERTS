@@ -28,25 +28,15 @@ SC_MODULE(Slave) {
             
             if (valid)
             {
-                cout << in_data->read() << setw(8) << sc_time_stamp() << endl;
-                MyFile << in_data->read() << endl;
+                cout << data << setw(8) << sc_time_stamp() << endl;
+                MyFile << data << endl;
             } 
 
-            if ((rand()%2) == 1) //some random logic for when ready should be true
+            (rand()%2) == 1 ? ready = true : ready = false;
+            
+            for (int i = 0; i < out_ready.size(); i++)
             {
-                ready = true;
-                for (int i = 0; i < out_ready.size(); i++)
-                {
-                    out_ready[i]->write(ready);
-                }
-            }
-            else 
-            {
-                ready = false;
-                for (int i = 0; i < out_ready.size(); i++)
-                {
-                    out_ready[i]->write(ready);
-                }
+                out_ready[i]->write(ready);
             }
             wait();
 	    }

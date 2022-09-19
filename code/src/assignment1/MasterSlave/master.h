@@ -20,35 +20,30 @@ SC_MODULE(Master) {
         while (1)
         {
             ready = in_ready->read();
-
-            if(valid)
-            {        
-                for (int i = 0; i < out_data.size(); i++)
-                {
-                    data++; //increments every time we send
-                    out_data[i]->write(data);
-                    out_error[i]->write(error);
-                    out_channel[i]->write(channel);
-                }
-            }
-
-            if ((rand()%2) == 1) //some random logic for when valid should be true
-            {
+            if(ready && !valid) {
                 valid = true;
-                for (int i = 0; i < out_data.size(); i++)
-                {
-                    out_valid[i]->write(valid);
-                }
-            } 
-            else
-            {
+                data++;
+                this->write();
+            } else if(ready && valid){
+                valid = true;
+                data++;        
+                this->write();
+            } else if(!ready){
                 valid = false;
-                for (int i = 0; i < out_data.size(); i++)
-                {
-                    out_valid[i]->write(valid);
-                }
+                this->write();
+            } else {
+                this->write();
             }
             wait();
+        }
+    }
+    void write() {
+        for (int i = 0; i < out_data.size(); i++)
+        {
+            out_data[i]->write(data);
+            out_error[i]->write(error);
+            out_channel[i]->write(channel);
+            out_valid[i]->write(valid);
         }
     }
 

@@ -19,14 +19,14 @@ SC_MODULE(Slave)
         ofstream MyFile("data.txt");
         while(1){
             valid.read();
-            data.read();
+            auto msg = data.read();
             error.read();
             channel.read();
             
             if (valid == SC_LOGIC_1)
             {
-                cout << data.read() << setw(8) << sc_time_stamp() << endl;
-                MyFile << data.read() << endl;
+                cout << msg << setw(8) << sc_time_stamp() << endl;
+                MyFile << msg << endl;
             } 
 
             if ((rand()%2) == 1) //some random logic for when ready should be true
