@@ -3,7 +3,7 @@
 \usepackage{preamb}
 
 \begin{document}
-\lstset{style=codestyle}
+\lstset{style=output}
 \input{latex/FrontPage.tex}
 \tableofcontents
 \pagestyle{ProjectReport}
@@ -11,11 +11,28 @@
 \lstlistoflistings
 \newpage
 
-\chapter{Asssignment1 }
+\chapter{Assignment 1}
+\section{Introduction}
 
-\section{Opgave 1}
+bla bla systemc...
 
-\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=hej hjeje caption]{../code/src/assignment1/ModuleSingle/single.cpp}
+\newpage
+\section{ModuleSingle}
+
+The first module implemented is a single threaded method run every 2ms. 
+
+\lstset{style=code}
+\lstinputlisting[language=C++, firstnumber=6, firstline=6, lastline=18, caption=ModuleSingle header file, label=31HEADER]{../code/src/assignment1/ModuleSingle/single.h}
+
+\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=ModuleSingle source file, label=31SOURCE]{../code/src/assignment1/ModuleSingle/single.cpp}
+
+As we are using a \textbf{sc\_uint<4>} type, the maximum for the counter will be \( 2^4 = 16 \). Which is noticed in the output \ref{31OUT}, whenever the counter reaches 15. As the counter goes from 0-15.
+
+\lstset{style=output}
+\lstinputlisting[firstline=12, lastline=20, caption=Output result from exercise 3.1, label=31OUT]{../code/src/assignment1/ModuleSingle/out/out}
+
+\newpage
+\section{ModuleDouble}
 
 
 \end{document}
