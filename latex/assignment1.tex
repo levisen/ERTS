@@ -16,23 +16,55 @@
 
 bla bla systemc...
 
-\newpage
+
+
+
+
+
 \section{ModuleSingle}
 
 The first module implemented is a single threaded method run every 2ms. 
 
 \lstset{style=code}
-\lstinputlisting[language=C++, firstnumber=6, firstline=6, lastline=18, caption=ModuleSingle header file, label=31HEADER]{../code/src/assignment1/ModuleSingle/single.h}
+\lstinputlisting[language=C++, firstnumber=6, firstline=6, lastline=18, caption=Implementation of single.h header., label=31HEADER]{../code/src/assignment1/ModuleSingle/single.h}
 
-\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=ModuleSingle source file, label=31SOURCE]{../code/src/assignment1/ModuleSingle/single.cpp}
+\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=Implementation of single.cpp source., label=31SOURCE]{../code/src/assignment1/ModuleSingle/single.cpp}
 
 As we are using a \textbf{sc\_uint<4>} type, the maximum for the counter will be \( 2^4 = 16 \). Which is noticed in the output \ref{31OUT}, whenever the counter reaches 15. As the counter goes from 0-15.
 
 \lstset{style=output}
-\lstinputlisting[firstline=12, lastline=20, caption=Output result from exercise 3.1, label=31OUT]{../code/src/assignment1/ModuleSingle/out/out}
+\lstinputlisting[firstline=12, lastline=17, caption=Output result from exercise 3.1., label=31OUT]{../code/src/assignment1/ModuleSingle/out/out}
 
-\newpage
+
+
+
+
+
 \section{ModuleDouble}
 
+For this exercise, we define the 4 events, 2 threads, and the method to be called from both threads in \ref{32HEADER}.
+
+\lstset{style=code}
+\lstinputlisting[language=C++, firstnumber=6, firstline=6, lastline=22, caption=Implementation of double.h header., label=32HEADER]{../code/src/assignment1/ModuleDouble/double.h}
+
+Both of the threads are essentially implemented the same way. Just with different names shown in listing \ref{32SOURCE}. The \textbf{next\_trigger()} method is called to actively trigger the next event.
+
+\lstinputlisting[language=C++, firstnumber=12, firstline=12, lastline=26, caption=Implementation of double.cpp source., label=32SOURCE]{../code/src/assignment1/ModuleDouble/double.cpp} 
+
+In listing \ref{32OUT} it is seen that B is acknowledged every 2 ms, until a - that has a timeout period on 3 ms - gets called. Because A has catched up to 6ms and both ack should be called. B is skipped due to the thread's method is alternating. With the result of Back's next message being delivered at 8 ms.
+
+\lstset{style=output}
+\lstinputlisting[firstline=1, lastline=6, caption=Output result from exercise 3.2., label=32OUT]{../code/src/assignment1/ModuleDouble/out/out}
+
+
+
+
+
+\section{ProducerConsumer}
+
+
+
+\lstset{style=output}
+\lstinputlisting[firstline=2, lastline=10, caption=Output result from exercise 3.3., label=32OUT]{../code/src/assignment1/ProducerConsumer/out/out}
 
 \end{document}
