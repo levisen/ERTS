@@ -3,6 +3,7 @@
 \usepackage{preamb}
 
 \begin{document}
+
 \lstset{style=output}
 \input{latex/FrontPage.tex}
 \tableofcontents
@@ -14,7 +15,8 @@
 \chapter{Assignment 1}
 \section{Introduction}
 
-bla bla systemc...
+The is the first assignment in Embedded Real Time Systems.
+All source files can be found at: \url{https://github.com/levisen/ERTS}
 
 
 
@@ -65,7 +67,7 @@ In listing \ref{32OUT} it is seen that B is acknowledged every 2 ms, until a - t
 Here, we are using the \textbf{sc\_fifo<>} type to initialize two \textbf{TCPHeader*} dummy instances, that represent the physical ports. 
 
 \lstset{style=code}
-\lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=27, caption=Initialization source for Producer Consumer implementation in SystemC., label=32HEADER]{../code/src/assignment1/ProducerConsumer/top.h}
+\lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=27, caption=Initialization source for Producer Consumer implementation in SystemC., label=33HEADER]{../code/src/assignment1/ProducerConsumer/top.h}
 
 The producer thread waits randomly and then generates a new \textbf{TCPHeader} instance to write to the \textbf{sc\_port}. Essentially the \textbf{TCPHeader} could be any dummy data object, that we want to transfer. Using the \textbf{package\_number} listed in \ref{33SOURCE::PRODUCER}, we incremented the package counter to keep track of sent packages to the consumers. The magic happens with the \textbf{sc\_fifo\_in<>} type, which clarifies the use of a FIFO port in SystemC. As shown in listing \ref{33SOURCE::CONSUMER}, the message from the physical port handled by SystemC, is consumed when the \textbf{read()} function is called.
 
@@ -83,6 +85,50 @@ The results listed in listing \ref{33OUT}, show the consumer name initialized in
 
 
 \section{MasterSlave}
+A cycle accurate communication model has been implemented using the figures from the exercise. Essentially the \textbf{data},\textbf{ready} and \textbf{valid} is the most interesting to look at, as the other signal are sending dummy data in this implementation.
+
+
+\lstset{style=code}
+\lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=40, caption=Initialization source for Master Slave implementation in SystemC., label=34HEADER]{../code/src/assignment1/MasterSlave/top.h}
+
+The \textbf{produce()} - shown in listing \ref{34PRODUCER} - function is implemented through a set of if/else in a while loop, invoked by the thread. For every cycle in the loop we read the data, and depending on whether the slave is ready to consume the next message, we set the \textbf{valid} signal to true and write. 
+
+\lstinputlisting[language=C++, firstnumber=19, firstline=19, lastline=48, caption=Master implementation for Master Slave., label=34PRODUCER]{../code/src/assignment1/MasterSlave/master.h}
+
+For the slave implementation, we read every cycle and if the \textbf{valid} signal is true, we simply save the data. For simulation purposes, we randomize the \textbf{ready} signal of the unit, to simulate some processing. Which would usually occur on such devices.
+
+\lstinputlisting[language=C++, firstnumber=21, firstline=21, lastline=43, caption=Slave implementation for Master Slave., label=34CONSUMER]{../code/src/assignment1/MasterSlave/slave.h}
+
+The end result listed in \ref{FIG::34} shows that whenever the \textbf{clock} signal goes high, is where the data is written to the signal port. It also indicates that both \textbf{valid} and \textbf{ready} must be high for the data to be written and acknowledged.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{../code/src/assignment1/MasterSlave/out/out.png}
+  \caption{Gtkwave output from simulation}
+  \label{FIG::34}
+\end{figure}
+
+
+
+
+
+
+\section{InAdapter}
+
+For the InAdapter one can implement another master node to feed data into the system. By following the 'Adapter Model' design from the exercise, we first implemented the Master. This is just a dummy producer node that increments data over time.
+
+\lstinputlisting[language=C++, firstnumber=6, firstline=6, lastline=20, caption=Producer from master.h source file., label=35PRODUCER]{../code/src/assignment1/InAdapter/master.h}
+
+With the implementation of the InAdapter already provided, one can continue with the slave, which is essentially the same implementation as in listing \ref{34CONSUMER}. We now use predefined SystemC logic types instead of just integer values. This is shown in listing \ref{35CONSUMER}.
+
+\lstinputlisting[language=C++, firstnumber=18, firstline=18, lastline=42, caption=consume method from slave.h  source file., label=35CONSUMER]{../code/src/assignment1/InAdapter/slave.h}
+
+In general, the results look somewhat similar compared to the results in the previous exercise in figure \ref{FIG::34}. We see that the results differ, whenever a signal has been sent, as after acknowledgment, the \textbf{valid} signal goes back to low. 
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{../code/src/assignment1/InAdapter/out/out.png}
+  \caption{Gtkwave output from simulation}
+  \label{FIG::35}
+\end{figure}
 
 
 
