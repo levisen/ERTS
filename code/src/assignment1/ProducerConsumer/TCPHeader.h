@@ -8,7 +8,7 @@ typedef struct constr
 constr() : SourcePort(0), DestinationPort(0), SequenceNumber(0), Acknowledge(1)
         , StatusBits(10), WindowSize(10), Checksum(10), UrgentPointer(10), Data("This is a test")
     {
-        //Do nothing
+        DestinationPort = rand() % 2 + 1;
     }
 sc_uint<16> SourcePort;
 sc_uint<16> DestinationPort;
