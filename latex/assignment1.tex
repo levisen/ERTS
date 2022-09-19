@@ -62,9 +62,28 @@ In listing \ref{32OUT} it is seen that B is acknowledged every 2 ms, until a - t
 
 \section{ProducerConsumer}
 
+Here, we are using the \textbf{sc\_fifo<>} type to initialize two \textbf{TCPHeader*} dummy instances, that represent the physical ports. 
 
+\lstset{style=code}
+\lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=27, caption=Initialization source for Producer Consumer implementation in SystemC., label=32HEADER]{../code/src/assignment1/ProducerConsumer/top.h}
+
+The producer thread waits randomly and then generates a new \textbf{TCPHeader} instance to write to the \textbf{sc\_port}. Essentially the \textbf{TCPHeader} could be any dummy data object, that we want to transfer. Using the \textbf{package\_number} listed in \ref{33SOURCE::PRODUCER}, we incremented the package counter to keep track of sent packages to the consumers. The magic happens with the \textbf{sc\_fifo\_in<>} type, which clarifies the use of a FIFO port in SystemC. As shown in listing \ref{33SOURCE::CONSUMER}, the message from the physical port handled by SystemC, is consumed when the \textbf{read()} function is called.
+
+\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=15, caption=Implementation of producer.cpp source, label=33SOURCE::PRODUCER]{../code/src/assignment1/ProducerConsumer/producer.cpp}
+
+\lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=9, caption=Implementation of consumer.cpp source, label=33SOURCE::CONSUMER]{../code/src/assignment1/ProducerConsumer/consumer.cpp}
+
+The results listed in listing \ref{33OUT}, show the consumer name initialized in listing \ref{32HEADER}, sequence number and at which time the messages is generated and put to the queue. For some fun at the transport layer level, where this packages is typically used, we also added a random destination port.
 
 \lstset{style=output}
-\lstinputlisting[firstline=2, lastline=10, caption=Output result from exercise 3.3., label=32OUT]{../code/src/assignment1/ProducerConsumer/out/out}
+\lstinputlisting[firstline=1, lastline=6, caption=Output result from exercise 3.3., label=33OUT]{../code/src/assignment1/ProducerConsumer/out/out}
+
+
+
+
+
+\section{MasterSlave}
+
+
 
 \end{document}
