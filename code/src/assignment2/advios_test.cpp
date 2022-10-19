@@ -3,8 +3,8 @@
 #include "advios_driver.h"
 
 #ifdef __RTL_SIMULATION__
-	#include "iosc_rtl_wrapper.h"
-	#define iosc iosc_rtl_wrapper
+	#include "advios_rtl_wrapper.h"
+	#define advios advios_rtl_wrapper
 #else
 	#include "advios.h"
 #endif
@@ -12,17 +12,17 @@
 
 int sc_main (int argc , char *argv[])
 {
-	// sc_report_handler::set_actions("/IEEE_Std_1666/deprecated", SC_DO_NOTHING);
-	// sc_report_handler::set_actions( SC_ID_LOGIC_X_TO_BOOL_, SC_LOG);
-	// sc_report_handler::set_actions( SC_ID_VECTOR_CONTAINS_LOGIC_VALUE_, SC_LOG);
-	// sc_report_handler::set_actions( SC_ID_OBJECT_EXISTS_, SC_LOG);
+	sc_report_handler::set_actions("/IEEE_Std_1666/deprecated", SC_DO_NOTHING);
+	sc_report_handler::set_actions( SC_ID_LOGIC_X_TO_BOOL_, SC_LOG);
+	sc_report_handler::set_actions( SC_ID_VECTOR_CONTAINS_LOGIC_VALUE_, SC_LOG);
+	sc_report_handler::set_actions( SC_ID_OBJECT_EXISTS_, SC_LOG);
 
 	sc_trace_file *tracefile;
 
 	sc_signal<bool> s_reset;
-	sc_signal<sc_uint<num_bits>> s_switch;
-	sc_signal<sc_uint<num_bits>> s_ctrl;
-	sc_signal<sc_uint<num_bits>> s_leds;
+	sc_signal<sc_uint<num_bits> > s_switch;
+	sc_signal<sc_uint<num_bits> > s_ctrl;
+	sc_signal<sc_uint<num_bits> > s_leds;
 	sc_signal<bool> s_sec_pulse;
 
 	// Create a 10ns period clock signal

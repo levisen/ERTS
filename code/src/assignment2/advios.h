@@ -11,9 +11,9 @@ SC_MODULE(advios)
 
     sc_in<bool> clk;
     sc_in<bool> reset;
-    sc_in<sc_uint<num_bits>> ctrl;
-    sc_in<sc_uint<num_bits>> inSwitch;
-    sc_out<sc_uint<num_bits>> outLeds;
+    sc_in<sc_uint<num_bits> > ctrl;
+    sc_in<sc_uint<num_bits> > inSwitch;
+    sc_out<sc_uint<num_bits> > outLeds;
 
     // Variables
     sc_uint<num_bits> switchs;

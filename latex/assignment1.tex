@@ -32,7 +32,7 @@ The first module implemented is a single threaded method run every 2ms.
 
 \lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=14, caption=Implementation of single.cpp source., label=31SOURCE]{../code/src/assignment1/ModuleSingle/single.cpp}
 
-As we are using a \textbf{sc\_uint<4>} type, the maximum for the counter will be \( 2^4 = 16 \). Which is noticed in the output \ref{31OUT}, whenever the counter reaches 15. As the counter goes from 0-15.
+As we are using a \textbf{sc\_uint<4>} type, the maximum number we can represent with 4 bits is \( 1111 = 15 \). Which is noticed in the output \ref{31OUT}, whenever the counter reaches 15. As the counter goes from 0-15.
 
 \lstset{style=output}
 \lstinputlisting[firstline=12, lastline=17, caption=Output result from exercise 3.1., label=31OUT]{../code/src/assignment1/ModuleSingle/out/out}
@@ -51,8 +51,8 @@ For this exercise, we define the 4 events, 2 threads, and the method to be calle
 
 Both of the threads are essentially implemented the same way. Just with different names shown in listing \ref{32SOURCE}. The \textbf{next\_trigger()} method is called to actively trigger the next event.
 
-\lstinputlisting[language=C++, firstnumber=12, firstline=12, lastline=26, caption=Implementation of double.cpp source., label=32SOURCE]{../code/src/assignment1/ModuleDouble/double.cpp} 
-
+\lstinputlisting[language=C++, firstnumber=12, firstline=12, lastline=32, caption=Implementation of double.cpp source., label=32SOURCE]{../code/src/assignment1/ModuleDouble/double.cpp} 
+\newpage
 In listing \ref{32OUT} it is seen that B is acknowledged every 2 ms, until a - that has a timeout period on 3 ms - gets called. Because A has catched up to 6ms and both ack should be called. B is skipped due to the thread's method is alternating. With the result of Back's next message being delivered at 8 ms.
 
 \lstset{style=output}
@@ -70,7 +70,7 @@ Here, we are using the \textbf{sc\_fifo<>} type to initialize two \textbf{TCPHea
 \lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=27, caption=Initialization source for Producer Consumer implementation in SystemC., label=33HEADER]{../code/src/assignment1/ProducerConsumer/top.h}
 
 The producer thread waits randomly and then generates a new \textbf{TCPHeader} instance to write to the \textbf{sc\_port}. Essentially the \textbf{TCPHeader} could be any dummy data object, that we want to transfer. Using the \textbf{package\_number} listed in \ref{33SOURCE::PRODUCER}, we incremented the package counter to keep track of sent packages to the consumers. The magic happens with the \textbf{sc\_fifo\_in<>} type, which clarifies the use of a FIFO port in SystemC. As shown in listing \ref{33SOURCE::CONSUMER}, the message from the physical port handled by SystemC, is consumed when the \textbf{read()} function is called.
-
+\newpage
 \lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=15, caption=Implementation of producer.cpp source, label=33SOURCE::PRODUCER]{../code/src/assignment1/ProducerConsumer/producer.cpp}
 
 \lstinputlisting[language=C++, firstnumber=4, firstline=4, lastline=9, caption=Implementation of consumer.cpp source, label=33SOURCE::CONSUMER]{../code/src/assignment1/ProducerConsumer/consumer.cpp}
@@ -82,7 +82,7 @@ The results listed in listing \ref{33OUT}, show the consumer name initialized in
 
 
 
-
+\newpage
 
 \section{MasterSlave}
 A cycle accurate communication model has been implemented using the figures from the exercise. Essentially the \textbf{data},\textbf{ready} and \textbf{valid} is the most interesting to look at, as the other signal are sending dummy data in this implementation.
@@ -92,7 +92,7 @@ A cycle accurate communication model has been implemented using the figures from
 \lstinputlisting[language=C++, firstnumber=8, firstline=8, lastline=40, caption=Initialization source for Master Slave implementation in SystemC., label=34HEADER]{../code/src/assignment1/MasterSlave/top.h}
 
 The \textbf{produce()} - shown in listing \ref{34PRODUCER} - function is implemented through a set of if/else in a while loop, invoked by the thread. For every cycle in the loop we read the data, and depending on whether the slave is ready to consume the next message, we set the \textbf{valid} signal to true and write. 
-
+\newpage
 \lstinputlisting[language=C++, firstnumber=19, firstline=19, lastline=48, caption=Master implementation for Master Slave., label=34PRODUCER]{../code/src/assignment1/MasterSlave/master.h}
 
 For the slave implementation, we read every cycle and if the \textbf{valid} signal is true, we simply save the data. For simulation purposes, we randomize the \textbf{ready} signal of the unit, to simulate some processing. Which would usually occur on such devices.

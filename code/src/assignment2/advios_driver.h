@@ -22,8 +22,9 @@ SC_MODULE(advios_driver) {
 	SC_CTOR(advios_driver) : retval(-1) {
 
 		//Process Registration
-		SC_THREAD(test);
-		sensitive << clk.pos();
+		SC_CTHREAD(test, clk.pos());
+		reset_signal_is(reset, true);
+		//sensitive << clk.pos();
 	}
 };
 

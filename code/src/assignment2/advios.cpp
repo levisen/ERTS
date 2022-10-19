@@ -1,10 +1,11 @@
 #include "advios.h"
 
+
 // based on inswitch and control
 void advios::iosThread()
 {
 // Group ports into AXI4 slave slv0
-//pragma HLS resource core = AXI4LiteS metadata = "-bus_bundle slv0" variable = ctrl // What is this????
+	#pragma HLS resource core = AXI4LiteS metadata = "-bus_bundle slv0" variable = ctrl // What is this????
 
     // Initialization
     wait();
@@ -21,15 +22,15 @@ void advios::iosThread()
         
         if (control == 0x0)
         {
-            if (sec_pulse == true)
-            {
-                sec_counter++;
-                outLeds.write(sec_counter);    
-            }
             if (switchs == 0x8)
             {
                 outLeds.write(0);
                 sec_counter = 0;
+            }
+            else if (sec_pulse == true)
+            {
+                sec_counter++;
+                outLeds.write(sec_counter);
             }
         }
         else
@@ -49,8 +50,8 @@ void advios::countThread()
         wait();
         count++;
         
-        // if (count >= 100000000)
-        if (count >= 10)
+        //if (count >= 10)
+        if (count >= 100000000)
         {
             sec_pulse = true;
             count = 0;
