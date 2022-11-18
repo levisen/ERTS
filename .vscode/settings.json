@@ -47,6 +47,7 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "bit": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "iomanip": "cpp"
     }
 }
