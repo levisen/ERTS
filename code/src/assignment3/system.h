@@ -72,15 +72,11 @@ class Context{
         void RequestInitialized() {
             this->state_->Initialized();
         }
-        virtual void RequestchMode() {
-            //this->state_->chMode();
-        }
-        virtual void RequestRunRealTime() {
-            //this->state_->RunRealTime();
-        }
-        virtual void RequestSimulate() {
-            //this->state_->Simulate();
-        }
+        virtual void RequestchMode() {}
+
+        virtual void RequestRunRealTime() {}
+
+        virtual void RequestSimulate() {}
 };
 
 class ApplicationModeSetting : public Context {
@@ -143,7 +139,6 @@ class PowerOnSelfTest : public State {
 };
 
 class RealTimeExecution : public State {
-
     public:
         void Simulate() override;
 };
@@ -201,7 +196,7 @@ void PowerOnSelfTest::SelfTestOk() {
 void RealTimeExecution::Simulate() {
     this->context_->TransitionTo(new Simulation);
     SimCount++;
-    std::cout << SimCount << std::endl;
+    std::cout << "SimCount: " << SimCount << std::endl;
 }
 
 void RealTimeLoop::Restart() {
