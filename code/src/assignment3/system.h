@@ -1,3 +1,13 @@
+/**
+ * \author Malthe Faurschou Tøttrup
+ * \date 19-10-2022
+ */
+
+/**
+ * @ref https://refactoring.guru/design-patterns/state/cpp/example
+ * 
+ */
+
 #pragma once
 #include <iostream>
 
