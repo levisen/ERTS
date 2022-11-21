@@ -81,34 +81,36 @@ class Context{
 
 class ApplicationModeSetting : public Context {
 
-    protected:
-        State *state_;
-
     using Context::Context;
 
-    void RequestchMode() override {
-        this->state_->chMode();
-    }
+    public:
+        void RequestchMode() override;
 };
 
 class SimulateRealTimeState : public Context{
 
-    protected:
-        State *state_;
-
     using Context::Context;
 
-    void RequestRunRealTime() override {
-        this->state_->RunRealTime();
-    }
-    void RequestSimulate() override {
-        this->state_->Simulate();
-    }
+    public:
+        void RequestRunRealTime() override;
+        
+        void RequestSimulate() override;
 };
+
+void ApplicationModeSetting::RequestchMode() {
+    this->state_->chMode();
+}
+
+void SimulateRealTimeState::RequestRunRealTime() {
+    this->state_->RunRealTime();
+}
+void SimulateRealTimeState::RequestSimulate() {
+    this->state_->Simulate();
+}
 
 class Failure : public State {
     public:
-        void Exit();
+        void Exit() override;
         void Restart() override;
 };
 
@@ -148,10 +150,11 @@ class RealTimeLoop : public State {
         SimulateRealTimeState *SRTS;
         ApplicationModeSetting *AMS;
         
-
     RealTimeLoop(){
         SRTS = new SimulateRealTimeState( new RealTimeExecution);
         AMS = new ApplicationModeSetting( new Mode1);
+        SRTS->RequestSimulate();
+        AMS->RequestchMode();
     }
 
     void Restart() override;
@@ -194,9 +197,9 @@ void PowerOnSelfTest::SelfTestOk() {
 }
 
 void RealTimeExecution::Simulate() {
-    this->context_->TransitionTo(new Simulation);
     SimCount++;
     std::cout << "SimCount: " << SimCount << std::endl;
+    this->context_->TransitionTo(new Simulation);
 }
 
 void RealTimeLoop::Restart() {
@@ -208,3 +211,4 @@ void RealTimeLoop::Restart() {
 void Simulation::RunRealTime() {
     this->context_->TransitionTo(new RealTimeExecution);
 }
+

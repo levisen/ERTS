@@ -48,6 +48,7 @@
         "typeinfo": "cpp",
         "bit": "cpp",
         "deque": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "strstream": "cpp"
     }
 }
