@@ -1,5 +1,5 @@
 /**
- * \author Malthe Faurschou Tøttrup
+ * \author Malthe Faurschou Tøttrup & Jakob Levisen
  * \date 19-10-2022
  */
 
@@ -57,7 +57,7 @@ class Context{
             this->state_->set_context(this);
         }
 
-        virtual void RequestRestart() {
+        void RequestRestart() {
             this->state_->Restart();
         }
         void RequestSelfTestFailed() {
@@ -200,6 +200,8 @@ void RealTimeExecution::Simulate() {
 }
 
 void RealTimeLoop::Restart() {
+    delete SRTS;
+    delete AMS;
     this->context_->TransitionTo(new PowerOnSelfTest);
 }
 
