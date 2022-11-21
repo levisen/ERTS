@@ -11,8 +11,8 @@ void driver(){
     context->RequestSelfTestOk();
     context->RequestExit();
     context->RequestInitialized();
-
-    std::cout << "test succeded" << std::endl;
+    context->RequestSimulate();
+    std::cout << "Test Succeded" << std::endl;
 }
 
 int main() {

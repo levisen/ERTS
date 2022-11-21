@@ -1,0 +1,9 @@
+Context: Transition to 15PowerOnSelfTest.
+Context: Transition to 12Initializing.
+Context: Transition to 17RealTimeExecution.
+Context: Transition to 5Mode1.
+SimCount: 1
+Context: Transition to 10Simulation.
+Context: Transition to 5Mode2.
+Context: Transition to 12RealTimeLoop.
+Test Succeded
